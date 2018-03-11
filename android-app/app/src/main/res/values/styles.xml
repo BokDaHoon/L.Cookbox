@@ -1,0 +1,41 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/recipeDarkColor</item>
+        <item name="colorAccent">@color/recipeDefaultFocusColor</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="AppThemeNoBar" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimaryDark">@color/recipeDarkColor</item>
+        <item name="colorAccent">@color/recipeDefaultFocusColor</item>
+        <!-- No Title Bar-->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="drawerArrowStyle">@style/DrawerArrowStyle</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar"/>
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
+
+    <style name="DrawerArrowStyle" parent="Widget.AppCompat.DrawerArrowToggle">
+        <item name="color">@color/recipeDarkColor</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="android:Theme.Dialog">
+
+        <item name="android:textSize">15sp</item>
+
+    </style>
+
+</resources>

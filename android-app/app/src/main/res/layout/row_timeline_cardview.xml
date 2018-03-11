@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                android:background="#fff"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/content_divider"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#FFFFFF"/>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cooking_card"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/content_divider"
+        android:background="@xml/card_edge">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/og_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:id="@+id/og_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/og_url"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="10dp"
+                android:textSize="11sp"
+                android:textColor="@color/gray"/>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/recipe_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cooking_card"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="\@potter7050"/>
+
+    <TextView
+        android:id="@+id/recipe_enname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipe_name"
+        android:autoLink="web"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="2dp"
+        android:textSize="14sp"
+        android:textColorLink="@color/blue"
+        android:text="Hello! My name is Dahoon Bok."/>
+
+    <TextView
+        android:id="@+id/recipe_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recipe_name"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="2dp"
+        android:layout_alignBaseline="@id/recipe_enname"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:text="21000"/>
+
+    <LinearLayout
+        android:id="@+id/layout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/recipe_enname"
+        android:gravity="center">
+
+        <ImageButton
+            android:id="@+id/recipe_reply"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:scaleType="fitXY"
+            android:background="@null"
+            android:src="@mipmap/ic_hits"/>
+
+        <TextView
+            android:id="@+id/recipe_inquery_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textSize="15sp"/>
+
+        <ToggleButton
+            android:id="@+id/recipe_favorite"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="80dp"
+            android:background="@drawable/favorite_toggle_selector"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:textOff=""
+            android:textOn=""/>
+
+        <TextView
+            android:id="@+id/recipe_favorite_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textSize="15sp"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

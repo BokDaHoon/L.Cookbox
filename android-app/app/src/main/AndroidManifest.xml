@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          package="com.boostcamp.mytwitter.mytwitter">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-feature android:name="android.hardware.Camera"/>
+    <uses-feature android:name="android.hardware.Camera2"/>
+
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+
+    <application
+        android:name=".base.MyTwitterApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".login.LoginActivity"
+            android:theme="@style/AppThemeNoBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".timeline.TimelineActivity"
+            android:theme="@style/AppThemeNoBar">
+            <meta-data
+                android:name=".searchable"
+                android:resource="@xml/searchable"/>
+        </activity>
+
+        <meta-data
+            android:name=".searchable"
+            android:resource="@xml/searchable"/>
+
+        <activity
+            android:name=".login.LoginAuthorityActivity"
+            android:theme="@style/AppThemeNoBar">
+        </activity>
+        <activity
+            android:name=".myorderlist.OrderListActivity"
+            android:label="">
+        </activity>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+        <provider
+            android:name=".base.db.TwitterContentProvider"
+            android:authorities="com.boostcamp.mytwitter.mytwitter"
+            android:exported="false"/>
+
+        <receiver
+            android:name=".receiver.TweetRebootReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".service.FirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <service android:name=".service.FirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <activity android:name=".orderprd.ChoicePrdActivity"
+                  android:label="@string/choice_prd_title">
+        </activity>
+    </application>
+
+</manifest>

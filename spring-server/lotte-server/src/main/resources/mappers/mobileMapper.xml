@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="kr.co.lotte.mapper.MobileMapper">
+
+	<select id="selectRecipeList" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT
+			REP_ID
+			, REP_ENM
+			, REP_NM
+			, REP_LCLS_ID
+			, REP_MCLS_ID
+			,
+			REP_SCLS_ID
+			, IMG_URL
+			, MOV_URL
+			, REP_DESC
+			, FVR_COUNT
+			, INQ_COUNT
+			, PRICE
+		FROM
+			lotte_demo_database.REP_MST
+	</select>
+	
+	<select id="selectRecipeListById" parameterType="hashmap" resultType="hashmap">
+		SELECT
+			  REP_ID
+			, REP_ENM
+			, REP_NM
+			, REP_LCLS_ID
+			, REP_MCLS_ID
+			, REP_SCLS_ID
+			, IMG_URL
+			, MOV_URL
+			, REP_DESC
+			, FVR_COUNT
+			, INQ_COUNT
+			, PRICE
+		FROM
+			lotte_demo_database.REP_MST
+		WHERE REP_ID = #{ID}
+	</select>
+
+	<select id="selectSearchRecipeList" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT
+		REP_ID
+		, REP_ENM
+		, REP_NM
+		, REP_LCLS_ID
+		, REP_MCLS_ID
+		,
+		REP_SCLS_ID
+		, IMG_URL
+		, MOV_URL
+		, REP_DESC
+		, FVR_COUNT
+		, INQ_COUNT
+		, PRICE
+		FROM
+		lotte_demo_database.REP_MST
+		WHERE
+		REP_ENM LIKE CONCAT('%', #{ENAME}
+		,'%')
+
+	</select>
+
+	<select id="selectProductList" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT
+		PRD_ID
+		, PRD_NM
+		, PRD_IMG_URL
+		, ORIGIN
+		, PRD_LCLS_ID
+		,
+		PRD_SCLS_ID
+		FROM
+		lotte_demo_database.PRODUCT
+		WHERE
+		PRD_ID IN (SELECT
+		PRD_ID
+		FROM
+		lotte_demo_database.REP_DET
+		WHERE
+		REP_ID = #{ID})
+	</select>
+
+	<select id="selectMemberInfo" parameterType="hashmap"
+		resultType="hashmap">
+		SELECT
+		MBR_ID
+		, PASSWORD
+		, NAME
+		, SEX
+		, AGE
+		, PHONENUMBER
+		,
+		ADDRESS
+		FROM
+		lotte_demo_database.MEMBER
+		WHERE
+		MBR_ID = #{ID} AND
+		DELETED =
+		'0회원'
+	</select>
+
+	<select id="selectOrderList" parameterType="hashmap" resultType="hashmap">
+		SELECT
+		O.ORD_ID
+		, O.MBR_ID
+		, O.REP_ID
+		, R.REP_NM
+		, R.IMG_URL
+		, O.CNT
+		,
+		O.ORD_DATE
+		, R.PRICE
+		, (SELECT CODE_DESC FROM
+		lotte_demo_database.COMMON_CODE WHERE CODE_ID
+		= 'CD0002' AND CODE_VALUE
+		= O.DEV_TYPE) AS DEV_TYPE
+		FROM
+		lotte_demo_database.ORDER_LIST O ,
+		lotte_demo_database.REP_MST R
+		WHERE
+		O.REP_ID = R.REP_ID AND
+		MBR_ID =
+		#{ID}
+		ORDER BY
+		O.ORD_DATE DESC
+	</select>
+
+	<insert id="orderRecipe" parameterType="hashmap">
+		INSERT
+		INTO
+		lotte_demo_database.ORDER_LIST (
+			  MBR_ID
+			, REP_ID
+			, CNT
+			, ORD_DATE
+			, DEV_TYPE
+		) VALUES (
+			  #{mbrId}
+			, #{repId}
+			, #{cnt}
+			, DATE_FORMAT(NOW(),'%Y-%m-%d')
+			, #{devType}
+		)
+	</insert>
+
+	<update id="updateInquery" parameterType="hashmap">
+		UPDATE
+		lotte_demo_database.REP_MST
+		SET
+		INQ_COUNT = INQ_COUNT + 1
+		WHERE
+		REP_ID =
+		#{ID}
+	</update>
+
+</mapper>
+

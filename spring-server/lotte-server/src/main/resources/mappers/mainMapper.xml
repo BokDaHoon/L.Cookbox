@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+ 
+<mapper namespace="kr.co.lotte.mapper.MainMapper">
+ 
+    <select id="selectProductsList" parameterType="hashmap" resultType="hashmap">
+    	SELECT
+			PRD_ID ,
+			PRD_NM ,
+			PRD_IMG_URL ,
+			PRICE ,
+			LCLS_ID ,
+			MCLS_ID ,
+			SCLS_ID
+    	FROM
+    		PRODUCT
+		WHERE
+			(LCLS_ID, MCLS_ID) IN (SELECT LCLS_ID, MCLS_ID FROM PERSON_FAVR WHERE MEMBER_ID = #{ID})
+
+		UNION
+		
+		SELECT 
+			PRD_ID ,
+			PRD_NM ,
+			PRD_IMG_URL ,
+			PRICE ,
+			LCLS_ID ,
+			MCLS_ID ,
+			SCLS_ID
+		FROM
+			PRODUCT
+		WHERE
+			(LCLS_ID, MCLS_ID) IN (SELECT LCLS_ID, MCLS_ID FROM PRODUCT A, ORDER_LIST B WHERE A.PRD_ID = B.PRD_ID AND B.MBR_ID = #{ID})
+    </select>
+    
+    <!-- 레시피 검색 By 미란 허  -->
+    <select id="selectRecipesByKeyword" parameterType="String" resultType="hashmap">
+    SELECT * FROM lotte_demo_database.REP_MST AS A
+	WHERE A.REP_ENM LIKE CONCAT('%',#{keyword},'%')
+	ORDER BY A.FVR_COUNT DESC LIMIT 10
+
+	<!-- 
+    	SELECT A.* FROM lotte_demo_database.REP_MST AS A
+    	WHERE A.REP_SCLS_ID IN 
+    	(SELECT B.REP_SCLS_ID 
+    	FROM lotte_demo_database.REP_CLS_MST AS B WHERE B.REP_MCLS_NM LIKE CONCAT('%',#{keyword},'%'))    	 
+     	ORDER BY FVR_COUNT DESC LIMIT 3  / 고유 pk로 바꿔야할듯
+     -->
+    </select> 
+    
+    
+    <!-- 로그인기능 By 미란 허  -->
+    <select id="selectUserByIdAndPassword" resultType="kr.co.lotte.vo.Member" parameterType="hashmap">
+    	select * 
+    	from
+    		lotte_demo_database.MEMBER 
+    	where
+    		MBR_ID = #{MBR_ID} and PASSWORD = #{password}
+    </select>
+        
+	<!-- 인기레시피검색 By 미란 허 
+		  comment: 테이블 바꾸기 나중에 지금 REP_CLS_MST 밖에 없음  나중에 바꾸기 REP_MST-->
+    <select id="selectPopRecipes" resultType="hashmap">
+    	SELECT * 
+    	FROM 
+    		lotte_demo_database.REP_MST 
+    	ORDER BY 
+    		FVR_COUNT DESC 
+    	LIMIT 10
+     </select>
+     
+    <!-- 조회수 카운팅 By 미란 허 -->
+ 	<update id="increaseRecipeInqCount" parameterType="String">
+ 	UPDATE
+ 		lotte_demo_database.REP_MST
+ 	SET INQ_COUNT = INQ_COUNT + 1
+ 	WHERE REP_ID = #{REP_ID} 	 
+ 	</update>
+ 	
+ 	<!-- 좋아요 카운팅 By 미란 허 -->
+ 	<update id="increaseRecipeFvrCount" parameterType="String">
+ 	UPDATE
+ 		lotte_demo_database.REP_MST
+ 	SET FVR_COUNT = FVR_COUNT + 1
+ 	WHERE REP_ID = #{REP_ID} 	 
+ 	</update>
+ 	
+ 	
+    
+    
+    <!-- 상세레시피 By 대호 씨 -->
+    <select id="selectProductsByRecipeId" parameterType="String" resultType="hashMap">
+		SELECT
+			PRD_ID ,
+		    PRD_NM ,
+		    PRD_IMG_URL ,
+		    ORIGIN ,
+		    PRD_LCLS_ID ,
+		    PRD_SCLS_ID
+		FROM
+			lotte_demo_database.PRODUCT
+		WHERE
+			PRD_ID IN (
+				SELECT
+					d.PRD_ID
+		    	FROM
+		    		lotte_demo_database.REP_MST m, lotte_demo_database.REP_DET d
+				WHERE
+					m.REP_ID = d.REP_ID AND
+		            m.REP_ID = #{REP_ID})
+		ORDER BY
+			PRD_ID ASC;
+    </select>
+    
+    <!-- 디테일 bY 대호 -->
+    <select id="selectRecipesByRecipeId" parameterType="String" resultType="hashMap">
+		SELECT
+			REP_ID ,
+		    REP_ENM ,
+		    REP_NM ,
+		    REP_LCLS_ID ,
+		    REP_MCLS_ID ,
+		    REP_SCLS_ID ,
+		    IMG_URL ,
+		    MOV_URL ,
+		    REP_DESC ,
+		    FVR_COUNT ,
+		    INQ_COUNT ,
+		    PRICE
+		FROM
+			lotte_demo_database.REP_MST
+		WHERE
+			REP_ID = #{REP_ID}
+		ORDER BY
+			REP_ID ASC;
+    </select>
+    
+    <!--마이페이지 By 미란다 허 -->
+    <select id="selectOrderByloginUser" parameterType="String" resultType="hashMap">
+    	SELECT
+    		O.*,R.IMG_URL,R.MOV_URL,R.REP_NM,R.REP_ENM,R.REP_DESC,R.PRICE
+    	FROM
+    		lotte_demo_database.ORDER_LIST AS O, lotte_demo_database.REP_MST AS R 
+    	where MBR_ID = #{MBR_ID} AND R.REP_ID = O.REP_ID
+    	order by O.ORD_DATE DESC 
+    </select>
+    
+    
+    <!-- 구매하기  -->
+    <insert id="insertOrderById" parameterType="hashMap">
+    	 INSERT 
+      INTO lotte_demo_database.ORDER_LIST (
+           MBR_ID
+         , REP_ID
+         , CNT
+         , ORD_DATE
+         , DEV_TYPE
+      ) VALUES (
+           #{MBR_ID}
+         , #{REP_ID}
+         , #{CNT}
+         , DATE_FORMAT(NOW(),'%Y-%m-%d')
+         , #{devType}
+      )
+    </insert>
+ 
+</mapper>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:paddingTop="16dp"
+              android:paddingLeft="16dp"
+              android:paddingRight="16dp">
+
+    <ImageView
+        android:id="@+id/product_image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/product_image"
+        android:layout_marginLeft="15dp"
+        android:text="해표 올리브유EV 500ml"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/product_label_origin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/product_image"
+        android:layout_below="@id/product_name"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:text="원산지 : "
+        android:textSize="13sp"/>
+
+    <TextView
+        android:id="@+id/product_origin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/product_name"
+        android:layout_toRightOf="@id/product_label_origin"
+        android:layout_alignBaseline="@id/product_label_origin"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:text="국내산"
+        android:textSize="13sp"/>
+
+    <View
+        android:id="@+id/content_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/product_image"
+        android:background="#EAEAEA"/>
+
+</RelativeLayout>

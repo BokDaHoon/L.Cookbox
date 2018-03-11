@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="90dp">
+
+    <ImageView
+        android:id="@+id/order_recipe_image"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:id="@+id/order_recipe_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/order_recipe_image"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:text="potter7050"/>
+
+    <TextView
+        android:id="@+id/order_count_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/order_recipe_image"
+        android:layout_below="@id/order_recipe_name"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:autoLink="web"
+        android:textColorLink="@color/blue"
+        android:textSize="14sp"
+        android:text="수량 : "/>
+
+    <TextView
+        android:id="@+id/order_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/order_count_label"
+        android:layout_below="@id/order_recipe_name"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:autoLink="web"
+        android:textColorLink="@color/blue"
+        android:layout_alignBaseline="@id/order_count_label"
+        android:textSize="14sp"
+        android:text="2"/>
+
+    <TextView
+        android:id="@+id/order_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="15dp"
+        android:autoLink="web"
+        android:textColorLink="@color/blue"
+        android:textSize="16sp"
+        android:text="30000"
+        android:textColor="@color/black"
+        android:layout_alignBaseline="@id/order_recipe_name"/>
+
+    <TextView
+        android:id="@+id/order_price_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_toLeftOf="@id/order_price"
+        android:autoLink="web"
+        android:textColorLink="@color/blue"
+        android:textSize="16sp"
+        android:text="가격 : "
+        android:textColor="@color/black"
+        android:layout_alignBaseline="@id/order_recipe_name"/>
+
+    <TextView
+        android:id="@+id/order_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/order_recipe_name"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:autoLink="web"
+        android:textColorLink="@color/blue"
+        android:layout_alignParentRight="true"
+        android:layout_alignBaseline="@id/order_count_label"
+        android:textSize="14sp"
+        android:text="2017-08-02 19:07:02"/>
+
+    <View
+        android:background="@color/light_gray"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="15dp"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>
